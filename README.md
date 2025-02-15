@@ -77,34 +77,3 @@ Performance evaluations and detailed outputs can be found in the Jupyter Noteboo
 ## Conclusions
 
 Final conclusions and additional details are provided in the Jupyter Notebook.
-
-## Requirements
-
-The following libraries are required to run this project:
-- pandas
-- numpy
-- matplotlib
-- seaborn
-- scikit-learn
-
-## Usage
-
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/diabetes-prediction.git
-```
-
-2. Navigate to the project directory:
-```bash
-cd diabetes-prediction
-```
-
-3. Open the Jupyter Notebook:
-```bash
-jupyter notebook Diabetes_Prediction.ipynb
-```
-
-## License
-
-This project is licensed under the MIT License.
-
