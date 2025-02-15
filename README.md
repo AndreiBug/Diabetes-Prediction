@@ -1,62 +1,110 @@
-# Diabetes Predicition
+# Diabetes Prediction
 
-## Descrierea setului de date:
+## Dataset Description
 
-Setul de date `diabetes.csv` contine 768 de linii si 9 coloane,dintre care cele mai relevante putem considera : 'Insulin','BMI','Glucose','BloodPressure',etc.Putem observa in urma apelarii functiei `.describe()` asupra setului de date putem observa ca unele coloane de interes contin valori de 0,ceea ce poate influenta clasificarea ulterioara.
+The dataset `diabetes.csv` contains 768 rows and 9 columns, with relevant features such as `Insulin`, `BMI`, `Glucose`, `BloodPressure`, etc. Upon inspecting the dataset using the `.describe()` function, it was observed that some columns of interest contain values of `0`, which can negatively impact the performance of classification models.
 
-## Motivatia:
+## Motivation
 
-Scopul proiectului de a folosi metode supervizate in vederea clasificarii unei matrici,observand la final daca persoana este diabetica sau nu.
+The goal of this project is to apply supervised learning methods to classify whether a person is diabetic based on given medical data.
 
-## Obiectivul proiectului:
+## Objectives
 
-1.  Manevrarea datelor intr-un set de date cu mai multe coloane,explorarea lui si intelegerea distributiei datelor.
-2.  Aplicarea metodelor de reducere a dimensionalitatii pentru a intelege utilitatea si modul de folosinta in functie de date.
-3.  Folosirea mai multor metode supervizate pentru a observa compartamentul lor.
+1. Handle and explore a multi-column dataset to understand the distribution of data.
+2. Apply dimensionality reduction techniques (PCA) to evaluate their utility and impact on model performance.
+3. Implement and compare multiple supervised learning algorithms to analyze their performance.
 
-## Implementare:
+## Dataset Processing
 
-### Setul de date:
+### Initial Analysis
 
-Importarea setului de date `diabetes.csv` si afisarea mai multor informatii relevante asupra setului de date prin intermediul mai multor functii,precum :`.head()`,`.describe()`,`.corr()`.Dupa observatia facuta la punctul de la descrisca mai sus,am decis sa fac un nou set de date.
+The dataset was imported and analyzed using the following methods:
+- `.head()` – to display the first few rows.
+- `.describe()` – to get statistical insights.
+- `.corr()` – to examine feature correlations.
 
-### Obtinerea unui nou set de date:
+### Handling Missing Data
 
-Am observat ca coloanele 'Glucose','BloodPressure','SkinThickness','Insulin','BMI' contin valori de 0 ce pot afecta clasificarea viitoare.Vom inlocui valorile de NaN cu media asociata datelor de pe coloana.
+It was observed that columns such as `Glucose`, `BloodPressure`, `SkinThickness`, `Insulin`, and `BMI` contained values of `0`, which are not plausible in a medical context. These values were treated as missing values and replaced with the mean of their respective columns.
 
-## Afisarea unui pairplot pentru a trage concluziile asupra caracteristicilor noastre
+## Exploratory Data Analysis
 
-Am considerat ca si caracteristici pentru clasificare 'Glucose','Insulin','BMI','Age' si pentru a trage concluzii asupra performantei metodelor noastre am folosit un pairplot pentru a vedea distributia lor.Observam ca datele sunt interdependente,fiind afisate sub forma de cluster,foarte putine anomalii.
+A `pairplot` was generated to visualize the relationship between key features: `Glucose`, `Insulin`, `BMI`, and `Age`. The plot revealed clusters in the data with few anomalies.
 
-### Preprocesarea datelor:
+## Data Preprocessing
 
-Observand in urma formarii noului set de date ca datele sunt fie prea mici , fie mult prea mari am aplicat `MinMaxScaler()` pentru a le normaliza avand in vedere ca folosesc metode care sunt sensibile la date nenormalizate cum ar fi KNN.Scalarea datelor intr-o distributie standardizata foarte utila pentru SVM si LogisticRegression.
+Due to the varying scales of the features, `MinMaxScaler()` was applied to normalize the data. This is particularly important for distance-based algorithms such as K-Nearest Neighbors (KNN) and also benefits other models like Support Vector Machines (SVM) and Logistic Regression.
 
-### Aplicarea PCA asupra setului de date:
+## Principal Component Analysis (PCA)
 
-Functia `apply_pca()` folosita pentru a aplica PCA asupra matricii.Folosita pentru fiecare metoda pentru a observa outcome-ul.
+PCA was applied to reduce the dimensionality of the dataset and observe its impact on model performance. The `apply_pca()` function was created to handle this transformation.
 
-### Metode:
+## Classification Models
 
-- SVM:
-  - fara PCA: definita prin `svm_without_pca()`.
-  - cu PCA: definita prin `svm_with_pca()`.
-- GNB:
-  - fara PCA: definita prin `gnb_without_pca()`.
-  - cu PCA: definita prin `gnb_with_pca()`.
-- Functiile asociate pentru SVM si GNB au o implementare asemantoare.Impartirea in date de antrenare si testare,apelarea functiei de `train_and_evaluate_svm/gnb`,obtinerea predictiei si a acuratetii,afisarea unui `classification_report()` si afisarea unei matrici de confuzie print metoda `plot_confusion_matrix()`.Functiile cu PCA functioneaza similar,doar ca se apeleaza `apply_pca()`.
-- KNN:
-  - fara PCA: definita prin `knn_without_pca()`.
-  - cu PCA: definita prin `knn_with_pca()`.
-- RF:
-  - fara PCA: definita prin `rf_without_pca()`.
-  - cu PCA: definita prin `rf_with_pca()`.
-- Functiile KNN si RF au o abordare diferita.Am iterat printr-un for pentru gasirea numarului ideal de estimatori/vecini.In rest implemntarea fiind idem cu celelalte doua.
+The following supervised learning models were implemented with and without PCA:
 
-## Performante
+### Support Vector Machine (SVM)
+- Without PCA: `svm_without_pca()`
+- With PCA: `svm_with_pca()`
 
-Vezi descrierea proiectului din Jupyter Notebook.
+### Gaussian Naive Bayes (GNB)
+- Without PCA: `gnb_without_pca()`
+- With PCA: `gnb_with_pca()`
 
-## Concluzii si mai multe detalii:
+### K-Nearest Neighbors (KNN)
+- Without PCA: `knn_without_pca()`
+- With PCA: `knn_with_pca()`
 
-Vezi descrierea proiectului din Jupyter Notebook.
+### Random Forest (RF)
+- Without PCA: `rf_without_pca()`
+- With PCA: `rf_with_pca()`
+
+## Model Evaluation
+
+Each model was trained and evaluated as follows:
+1. Split the data into training and testing sets.
+2. Train the model using appropriate hyperparameters.
+3. Obtain predictions and calculate accuracy.
+4. Display a classification report.
+5. Plot a confusion matrix using `plot_confusion_matrix()`.
+
+For KNN and RF, hyperparameter tuning was performed by iterating over different values for the number of neighbors and estimators, respectively.
+
+## Results
+
+Performance evaluations and detailed outputs can be found in the Jupyter Notebook included in this repository.
+
+## Conclusions
+
+Final conclusions and additional details are provided in the Jupyter Notebook.
+
+## Requirements
+
+The following libraries are required to run this project:
+- pandas
+- numpy
+- matplotlib
+- seaborn
+- scikit-learn
+
+## Usage
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/diabetes-prediction.git
+```
+
+2. Navigate to the project directory:
+```bash
+cd diabetes-prediction
+```
+
+3. Open the Jupyter Notebook:
+```bash
+jupyter notebook Diabetes_Prediction.ipynb
+```
+
+## License
+
+This project is licensed under the MIT License.
+
